@@ -1,0 +1,22 @@
+%YAML:1.0
+
+#--------------------------------------------------------------------------------------------
+# PCL_FILTER Parameters. Adjust them!
+#--------------------------------------------------------------------------------------------
+
+# Conditional filter
+PCL_FILTER.PointcloudMinX: -20.0
+PCL_FILTER.PointcloudMaxX: 20.0
+PCL_FILTER.PointcloudMinY: -20.0
+PCL_FILTER.PointcloudMaxY: 20.0
+PCL_FILTER.PointcloudMinZ: -10.0
+PCL_FILTER.PointcloudMaxZ: 10.0
+
+# Voxel filter
+PCL_VOXEL.LeafX: 0.1
+PCL_VOXEL.LeafY: 0.1
+PCL_VOXEL.LeafZ: 0.1
+
+#Save Pointcloud Path
+POINTCLOUD.SaveDIR: "./"
+POINTCLOUD.SaveInterval: 200            #Every 200 meters to save a pointcloud

@@ -1,0 +1,29 @@
+<launch>
+	<!-- Node to publish topics -->
+    <node name="kitti_utlis_node" pkg="pointcloud_stiching" type="kitti_utlis_node" output="screen">
+		<param name="dataset_folder" type="string" value="/media/kinggreat24/Samsung_T5/data/kitti_data_full/odometry/unzip/data/dataset/" />
+		<param name="sequence_number" type="string" value="00" />
+		<param name="publish_frequency" type="double" value="5" />
+
+		<param name="image_left_frame_id" type="string" value="image_left" />
+		<param name="image_right_frame_id" type="string" value="image_right" />
+		<param name="pointcloud_frame_id" type="string" value="laser_link" />
+		
+		<param name="export_rosbag" type="bool" value="false" />
+		<param name="output_bag_file" type="string" value="" />
+	
+    </node>
+
+	<node name="pointcloud_stiching_node" pkg="pointcloud_stiching" type="pointcloud_stiching_node" output="screen">
+		<param name="setting_file" type="string" value="$(find pointcloud_stiching)/config/pointcloud_stiching.yaml"/>
+		<remap from="cloud_in" to="current_frame_pointcloud" />
+	</node>
+
+	<!-- Robot model -->
+	<include file="$(find rbcar_description)/launch/rbcar.launch"/>
+
+	<!-- Show in Rviz   -->
+  	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find pointcloud_stiching)/rviz/kitti_utlis.rviz"/> 
+
+	<node pkg="tf" type="static_transform_publisher" name="map2odom_broadcaster" args="0 0 0 0 0 0 1 map odom 100" />
+</launch>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find rbcar_description)/robots/rbcar.urdf.xacro'" />
+  <param name="robot_description" command="$(arg urdf_file)" />
+
+  <!-- send fake joint values -->
+  <node name="rbcar_joint_state_publisher" pkg="rbcar_state_publisher" type="rbcar_joint_publisher" output="screen">
+    <!-- <param name="use_gui" value="TRUE"/> -->
+    <param name="publish_frequency" type="double" value="50.0"/>
+  </node>
+
+  <!-- Combine joint values -->
+  <node name="rbcar_state_publisher" pkg="rbcar_state_publisher" type="rbcar_state_publisher" output="screen">
+	  <param name="use_tf_static" type="bool" value="false" /> 
+ </node>
+  
+</launch>
+
